@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+">
+
+    <!--开启注解扫描，base-package指定扫描的包路径-->
+    <context:component-scan base-package="com.lagou.edu"/>
+
+    <!--引入外部资源文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!--
+        druidDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        druidDataSource.setUrl("jdbc:mysql://localhost:3306/zdy_mybatis");
+        druidDataSource.setUsername("root");
+        druidDataSource.setPassword("root");
+    -->
+    <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/zdy_mybatis"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+    <bean id="lazyResult" class="com.lagou.edu.pojo.Result" init-method="initMethod"></bean>
+
+    <!--<bean id="companyBean" class="com.lagou.edu.factory.CompanyFactoryBean">
+        <property name="companyInfo" value="拉勾,中关村,500"></property>
+    </bean>-->
+    <!--使用config标签标示aop配置，在内部配置切面aspect-->
+    <!--<bean id="logUtils" class="com.lagou.edu.utils.LogUtils"></bean>
+    <aop:config>
+        <aop:aspect id="logAspect" ref="logUtils">
+        &lt;!&ndash;切入点锁定我们感兴趣的方法，使用aspectj语法表达式&ndash;&gt;
+            <aop:pointcut id="pt1"
+                          expression="execution(public void com.lagou.edu.service.impl.TransferServiceImpl.transfer(java.lang.String,java.lang.String,int ))"></aop:pointcut>
+            &lt;!&ndash;&lt;!&ndash;方位信息,pointcut-ref关联切入点&ndash;&gt;
+            &lt;!&ndash;aop:before前置通知/增强&ndash;&gt;&ndash;&gt;
+            <aop:before method="beforeMethod" pointcut-ref="pt1"/>
+            &lt;!&ndash;&lt;!&ndash;aop:after，最终通知，无论如何都执行&ndash;&gt;
+            &lt;!&ndash;aop:after-returnning，正常执行通知&ndash;&gt;&ndash;&gt;
+            &lt;!&ndash;<aop:after-returning method="successMethod" returning="retValue" />&ndash;&gt;
+            &lt;!&ndash;&lt;!&ndash;aop:after-throwing，异常通知&ndash;&gt;&ndash;&gt;
+
+            <aop:around method="arroundMethod" pointcut-ref="pt1"/>
+        </aop:aspect>
+    </aop:config>-->
+    <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+</beans>

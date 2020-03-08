@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+https://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+https://www.springframework.org/schema/context/spring-context.xsd
+">
+	<!--<bean id="lagouBean" class="com.lagou.edu.LagouBean"/>
+	<bean id="myBeanFactoryPostProcessor" class="com.lagou.edu.MyBeanFactoryPostProcessor"/>
+	<bean id="myBeanPostProcessor" class="com.lagou.edu.MyBeanPostProcessor"/>-->
+
+	<!--循环依赖问题-->
+	<!--<bean id="lagouBean" class="com.lagou.edu.LagouBean">
+		<property name="ItBean" ref="itBean"/>
+	</bean>
+	<bean id="itBean" class="com.lagou.edu.ItBean">
+		<property name="LagouBean" ref="lagouBean"/>
+	</bean>-->
+	<context:component-scan base-package="com.lagou.edu"></context:component-scan>
+</beans>
